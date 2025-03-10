@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Query PDF</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            width: 80%;
+            max-width: 500px;
+        }
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        textarea, input {
+            width: 90%;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            color: #333;
+            background: white;
+        }
+        button {
+            background: #ff4081;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        button:hover {
+            background: #ff79b0;
+            transform: scale(1.05);
+        }
+        p {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #ffebee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🤖 Ask Questions from Extracted PDF Text</h2>
+        <form method="POST">
+            <textarea name="pdf_text" placeholder="Enter Extracted Text"></textarea>
+            <input type="text" name="question" placeholder="Enter Your Question">
+            <button type="submit">Get Answer</button>
+        </form>
+        {% if answer %}
+            <p>Answer: {{ answer }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

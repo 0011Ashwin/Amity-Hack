@@ -1,0 +1,9 @@
+flask
+torch
+transformers
+spacy
+scikit-learn
+# difflib
+pdfplumber
+langchain
+openai
