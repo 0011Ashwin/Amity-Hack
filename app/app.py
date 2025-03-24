@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
 import os
 from plagiarism_detector import get_similarity
-from pdf_extractor import extract_text_from_pdf
+from pdf_extractor import extract_text_from_pdf  # Added import
+# from pdf_extractor import extract_text_from_pdf
 from query_engine import query_pdf
 
 # flask app 
@@ -23,12 +24,12 @@ def plagiarism():
             similarity = get_similarity(text1, text2)
     return render_template('plagiarism.html', similarity=similarity)
 
-# app-route of pdf_extraction
+# # app-route of pdf_extraction
 @app.route('/pdf_extraction', methods=['GET', 'POST'])
 def pdf_extraction():
     extracted_text = None
     if request.method == 'POST':
-        pdf_file = request.files['pdf_file']
+        pdf_file = request.files.get('pdf_file')
         if pdf_file:
             save_path = f"temp_{pdf_file.filename}"
             pdf_file.save(save_path)
