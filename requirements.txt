@@ -3,7 +3,8 @@ torch
 transformers
 spacy
 scikit-learn
-# difflib
+difflib
 pdfplumber
 langchain
 openai
+pandass
