@@ -1,97 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document Intelligence System</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(270deg, #2c3e5e, #0d172a, black);
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
-            color: white;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-        }
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .top-right-logo {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            height: 80px;
-        }
-        .logo-container {
-            margin-bottom: -20px;
-        }
-        .logo-container img {
-            height: 250px;
-            transition: 0.3s ease-in-out;
-        }
-        .logo-container img:hover {
-            filter: drop-shadow(0px 0px 15px rgba(255, 165, 0, 0.8));
-            transform: scale(1.1);
-        }
-        .container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            width: 45%;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            margin-top: 20px;
-        }
-        h1 {
-            font-size: 2.5rem;
-            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.2);
-            margin-bottom: 20px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            margin: 15px 0;
-        }
-        a {
-            text-decoration: none;
-            color: white;
-            font-size: 1.2rem;
-            padding: 12px 25px;
-            border: 2px solid white;
-            border-radius: 8px;
-            transition: all 0.3s ease-in-out;
-            display: inline-block;
-        }
-        a:hover {
-            background-color: white;
-            color: #2a5298;
-            transform: scale(1.1);
-        }
-    </style>
-</head>
-<body>
-    <img src="{{ url_for('static', filename='amity_bg_3.webp') }}" alt="Amity University Logo" class="top-right-logo">
-    <div class="logo-container">
-        <img src="{{ url_for('static', filename='bg_remove_logo_2.webp') }}" alt="New Logo">
+{% extends 'base.html' %}
+
+{% block title %}Document Intelligence System - Home{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold mb-3">Document Intelligence System</h1>
+    <p class="lead">Advanced document analysis platform powered by AI</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-search feature-icon"></i>
+                <h3>Plagiarism Detection</h3>
+                <p>Compare documents to check for similarities and potential plagiarism.</p>
+                <a href="/plagiarism" class="btn btn-primary mt-3">Try Now</a>
+            </div>
+        </div>
     </div>
-    <div class="container">
-        <h1>📄 Document Intelligence System</h1>
-        <ul>
-            <li><a href="/plagiarism">Plagiarism Detection</a></li>
-            <li><a href="/pdf_extraction">PDF Text Extraction</a></li>
-            <li><a href="/query_pdf">Query PDF</a></li>
-        </ul>
+    
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-file-pdf feature-icon"></i>
+                <h3>PDF Analysis</h3>
+                <p>Extract text from PDFs and ask questions about the content.</p>
+                <a href="/pdf_extraction" class="btn btn-primary mt-3">Try Now</a>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+    
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-card-text feature-icon"></i>
+                <h3>Document Summarization</h3>
+                <p>Generate concise summaries of your documents for different audiences.</p>
+                <a href="/document_summarization" class="btn btn-primary mt-3">Try Now</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-tag feature-icon"></i>
+                <h3>Document Classification</h3>
+                <p>Automatically categorize documents as healthcare, legal, or financial.</p>
+                <a href="/document_classification" class="btn btn-primary mt-3">Try Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-lg-6">
+        <h2 class="section-header">Why Document Intelligence?</h2>
+        <p>The Document Intelligence System helps organizations and individuals efficiently process, analyze, and extract insights from documents using advanced AI technologies.</p>
+        
+        <h5 class="mt-4"><i class="bi bi-check-circle-fill text-success me-2"></i>Save Time</h5>
+        <p>Automate document processing tasks that would take hours to do manually.</p>
+        
+        <h5><i class="bi bi-check-circle-fill text-success me-2"></i>Increase Accuracy</h5>
+        <p>AI-powered analysis reduces human error and provides consistent results.</p>
+        
+        <h5><i class="bi bi-check-circle-fill text-success me-2"></i>Gain Insights</h5>
+        <p>Extract valuable information and patterns from your documents.</p>
+    </div>
+    
+    <div class="col-lg-6">
+        <h2 class="section-header">How It Works</h2>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5><i class="bi bi-arrow-right-circle me-2 text-primary"></i> Upload Documents</h5>
+                <p>Upload PDFs, text files, or paste text directly into our system.</p>
+            </div>
+        </div>
+        
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5><i class="bi bi-arrow-right-circle me-2 text-primary"></i> AI Processing</h5>
+                <p>Our AI models analyze the content using advanced NLP techniques.</p>
+            </div>
+        </div>
+        
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5><i class="bi bi-arrow-right-circle me-2 text-primary"></i> Get Results</h5>
+                <p>View analysis results, summaries, and classifications instantly.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

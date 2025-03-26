@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Document Summarization{% endblock %}
+
+{% block content %}
+<h1 class="section-header">
+    <i class="bi bi-card-text me-2"></i> Document Summarization
+</h1>
+<p class="lead mb-4">Upload a document to generate a concise summary tailored for different audiences.</p>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="bi bi-upload me-2"></i> Upload Document
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    <label for="document_file" class="custom-file-upload mb-3">
+                        <i class="bi bi-file-earmark-arrow-up d-block"></i>
+                        <span>Click to upload or drag and drop</span>
+                        <br>
+                        <small class="text-muted">Supports PDF and TXT files</small>
+                        <br>
+                        <span class="file-name">No file chosen</span>
+                        <input type="file" name="document_file" id="document_file" class="file-upload-input" accept=".pdf,.txt" required>
+                    </label>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="summary_type" class="form-label">Summary Type</label>
+                            <select name="summary_type" id="summary_type" class="form-select">
+                                <option value="Brief">Brief Summary</option>
+                                <option value="Detailed">Detailed Summary</option>
+                                <option value="Bullet Points">Bullet Points</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="audience" class="form-label">Target Audience</label>
+                            <select name="audience" id="audience" class="form-select">
+                                <option value="General">General</option>
+                                <option value="Academic">Academic</option>
+                                <option value="Business">Business</option>
+                                <option value="Technical">Technical</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" name="summarize" value="true" class="btn btn-primary btn-lg">
+                            <i class="bi bi-journal-text me-2"></i> Generate Summary
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6">
+        {% if document_text %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="bi bi-file-text me-2"></i> Document Content
+            </div>
+            <div class="card-body">
+                <textarea class="form-control mb-3" rows="8" readonly>{{ document_text }}</textarea>
+                <form method="POST" action="{{ url_for('download_text') }}">
+                    <input type="hidden" name="text" value="{{ document_text }}">
+                    <input type="hidden" name="filename" value="document_text.txt">
+                    <button type="submit" class="btn btn-outline-primary">
+                        <i class="bi bi-download me-2"></i> Download Text
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if summary %}
+<div class="row animate-fade-in">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="bi bi-journal-text me-2"></i> Document Summary
+            </div>
+            <div class="card-body">
+                <div class="result-box info mb-3">
+                    {{ summary|nl2br }}
+                </div>
+                <form method="POST" action="{{ url_for('download_text') }}">
+                    <input type="hidden" name="text" value="{{ summary }}">
+                    <input type="hidden" name="filename" value="document_summary.txt">
+                    <button type="submit" class="btn btn-outline-primary">
+                        <i class="bi bi-download me-2"></i> Download Summary
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %} 
