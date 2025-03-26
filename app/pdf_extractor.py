@@ -9,7 +9,7 @@ import streamlit as st
 
 # Load environment variables
 load_dotenv()
-groq_api_key = os.getenv("GROQ_API_KEY")
+groq_api_key = os.getenv("GROQ_API_KEY_2")
 
 if not groq_api_key:
     raise ValueError("❌ Groq API key is missing! Set GROQ_API_KEY in .env file.")
@@ -114,3 +114,4 @@ if __name__ == "__main__":
     
     print("\n💡 AI Response:")
     print(answer)
+

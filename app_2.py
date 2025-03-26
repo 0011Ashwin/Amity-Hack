@@ -151,7 +151,7 @@ st.write("Welcome to the advanced document analysis platform powered by AI 🚀"
 st.sidebar.markdown("### 🧭 Navigation")
 option = st.sidebar.radio("Select a feature:",
                          ["Plagiarism Detection",
-                          "PDF Text Extraction",
+                          "Database Q&A",
                           "Document Summarization",
                           "Document Classification",
                           "Voice Interaction"])
@@ -297,12 +297,12 @@ if option == "Plagiarism Detection":
             st.warning("Please provide both texts to compare.")
 
 # PDF Text Extraction
-elif option == "PDF Text Extraction":
-    st.markdown("<div class='subheader'>📄 PDF Analysis & Q&A</div>", unsafe_allow_html=True)
+elif option == "Database Q&A":
+    st.markdown("<div class='subheader'>📄 Database Q&A with Hybrid model</div>", unsafe_allow_html=True)
     
     st.markdown("""
     Upload a PDF file to extract text and ask questions about its content. 
-    Our AI will analyze the document and provide answers based on the content.
+    Our AI will analyze the document and provide answers based on the content and also search throught the data. 
     """)
     
     uploaded_file = st.file_uploader("Upload a PDF File", type=["pdf"])
@@ -397,126 +397,126 @@ elif option == "PDF Text Extraction":
                 st.error(f"Error processing PDF: {str(e)}")
                 st.info("Make sure the PDF is properly formatted and not password-protected.")
 
-# Document Summarization
-elif option == "Document Summarization":
-    st.markdown("<div class='subheader'>📝 Document Summarization</div>", unsafe_allow_html=True)
+# # Document Summarization
+# elif option == "Document Summarization":
+#     st.markdown("<div class='subheader'>📝 Document Summarization</div>", unsafe_allow_html=True)
     
-    st.markdown("""
-    Upload a document to get an AI-generated summary. You can customize the summary type and target audience.
-    """)
+#     st.markdown("""
+#     Upload a document to get an AI-generated summary. You can customize the summary type and target audience.
+#     """)
     
-    uploaded_file = st.file_uploader("Upload a Document", type=["pdf", "txt"])
+#     uploaded_file = st.file_uploader("Upload a Document", type=["pdf", "txt"])
     
-    if uploaded_file is not None:
-        try:
-            text_to_summarize = ""
+#     if uploaded_file is not None:
+#         try:
+#             text_to_summarize = ""
             
-            if uploaded_file.name.endswith('.pdf'):
-                with st.spinner("Extracting text from PDF..."):
-                    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_pdf:
-                        temp_pdf.write(uploaded_file.getbuffer())
-                        save_path = temp_pdf.name
-                    text_to_summarize = extract_text_from_pdf(save_path)
-                    os.remove(save_path)
-            else:
-                text_to_summarize = uploaded_file.getvalue().decode("utf-8")
+#             if uploaded_file.name.endswith('.pdf'):
+#                 with st.spinner("Extracting text from PDF..."):
+#                     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_pdf:
+#                         temp_pdf.write(uploaded_file.getbuffer())
+#                         save_path = temp_pdf.name
+#                     text_to_summarize = extract_text_from_pdf(save_path)
+#                     os.remove(save_path)
+#             else:
+#                 text_to_summarize = uploaded_file.getvalue().decode("utf-8")
             
-            # Check if extraction was successful
-            if text_to_summarize and not text_to_summarize.startswith("Error"):
-                # Truncate text if too long
-                if len(text_to_summarize) > 10000:
-                    displayed_text = text_to_summarize[:10000] + "... (truncated for display)"
-                    st.warning("Document is large. Displaying first 10,000 characters.")
-                else:
-                    displayed_text = text_to_summarize
+#             # Check if extraction was successful
+#             if text_to_summarize and not text_to_summarize.startswith("Error"):
+#                 # Truncate text if too long
+#                 if len(text_to_summarize) > 10000:
+#                     displayed_text = text_to_summarize[:10000] + "... (truncated for display)"
+#                     st.warning("Document is large. Displaying first 10,000 characters.")
+#                 else:
+#                     displayed_text = text_to_summarize
                     
-                st.text_area("Document Content:", displayed_text, height=200)
+#                 st.text_area("Document Content:", displayed_text, height=200)
                 
-                # Configure summary options
-                st.markdown("### Summary Options")
+#                 # Configure summary options
+#                 st.markdown("### Summary Options")
                 
-                col1, col2 = st.columns(2)
-                with col1:
-                    summary_type = st.radio("Summary Type:", ["Brief", "Detailed", "Bullet Points"])
-                    st.markdown(f"<small><em>{summary_type} summary provides {'a concise overview' if summary_type == 'Brief' else 'comprehensive details' if summary_type == 'Detailed' else 'key points in bullet format'}.</em></small>", unsafe_allow_html=True)
+#                 col1, col2 = st.columns(2)
+#                 with col1:
+#                     summary_type = st.radio("Summary Type:", ["Brief", "Detailed", "Bullet Points"])
+#                     st.markdown(f"<small><em>{summary_type} summary provides {'a concise overview' if summary_type == 'Brief' else 'comprehensive details' if summary_type == 'Detailed' else 'key points in bullet format'}.</em></small>", unsafe_allow_html=True)
                 
-                with col2:
-                    audience = st.selectbox("Target Audience:", ["General", "Academic", "Technical", "Business"])
-                    st.markdown(f"<small><em>Tailored for {audience.lower()} readers.</em></small>", unsafe_allow_html=True)
+#                 with col2:
+#                     audience = st.selectbox("Target Audience:", ["General", "Academic", "Technical", "Business"])
+#                     st.markdown(f"<small><em>Tailored for {audience.lower()} readers.</em></small>", unsafe_allow_html=True)
                 
-                # Additional options
-                with st.expander("Advanced Options"):
-                    focus_area = st.multiselect("Focus Areas:", 
-                                              ["Main ideas", "Technical details", "Critical analysis", 
-                                               "Historical context", "Future implications"],
-                                              default=["Main ideas"])
+#                 # Additional options
+#                 with st.expander("Advanced Options"):
+#                     focus_area = st.multiselect("Focus Areas:", 
+#                                               ["Main ideas", "Technical details", "Critical analysis", 
+#                                                "Historical context", "Future implications"],
+#                                               default=["Main ideas"])
                     
-                    tone = st.select_slider("Tone:", 
-                                          options=["Formal", "Balanced", "Conversational"],
-                                          value="Balanced")
+#                     tone = st.select_slider("Tone:", 
+#                                           options=["Formal", "Balanced", "Conversational"],
+#                                           value="Balanced")
                 
-                if st.button("Generate Summary", key="gen_summary"):
-                    with st.spinner("Generating summary... This may take a moment"):
-                        try:
-                            # Limit text for API
-                            if len(text_to_summarize) > 6000:
-                                processing_text = text_to_summarize[:6000]
-                                st.info("Document is very large. Summarizing first 6,000 characters.")
-                            else:
-                                processing_text = text_to_summarize
+#                 if st.button("Generate Summary", key="gen_summary"):
+#                     with st.spinner("Generating summary... This may take a moment"):
+#                         try:
+#                             # Limit text for API
+#                             if len(text_to_summarize) > 6000:
+#                                 processing_text = text_to_summarize[:6000]
+#                                 st.info("Document is very large. Summarizing first 6,000 characters.")
+#                             else:
+#                                 processing_text = text_to_summarize
                                 
-                            # Build a more detailed prompt
-                            focus_text = ", ".join(focus_area)
-                            summary_prompt = f"""Summarize the following text in a {summary_type.lower()} format for a {audience.lower()} audience. 
-                            Focus on {focus_text} and use a {tone.lower()} tone:
+#                             # Build a more detailed prompt
+#                             focus_text = ", ".join(focus_area)
+#                             summary_prompt = f"""Summarize the following text in a {summary_type.lower()} format for a {audience.lower()} audience. 
+#                             Focus on {focus_text} and use a {tone.lower()} tone:
                             
-                            {processing_text}
-                            """
+#                             {processing_text}
+#                             """
                             
-                            summary = query_groq(processing_text, summary_prompt)
+#                             summary = query_groq(processing_text, summary_prompt)
                             
-                            # Display summary in a nice card
-                            st.markdown("### 📋 Summary")
-                            st.markdown(f"""
-                            <div style="background-color: {'#2d2d2d' if theme == 'Dark' else '#f8f9fa'}; 
-                                       padding: 25px; 
-                                       border-radius: 10px; 
-                                       border-left: 5px solid #4d4dff;
-                                       margin: 20px 0;">
-                                <div style="color: {'#e0e0e0' if theme == 'Dark' else '#333'};">
-                                    {summary}
-                                </div>
-                                <div style="margin-top: 20px; font-style: italic; font-size: 0.9rem; color: {'#bbb' if theme == 'Dark' else '#666'};">
-                                    {summary_type} summary for {audience} audience
-                                </div>
-                            </div>
-                            """, unsafe_allow_html=True)
+#                             # Display summary in a nice card
+#                             st.markdown("### 📋 Summary")
+#                             st.markdown(f"""
+#                             <div style="background-color: {'#2d2d2d' if theme == 'Dark' else '#f8f9fa'}; 
+#                                        padding: 25px; 
+#                                        border-radius: 10px; 
+#                                        border-left: 5px solid #4d4dff;
+#                                        margin: 20px 0;">
+#                                 <div style="color: {'#e0e0e0' if theme == 'Dark' else '#333'};">
+#                                     {summary}
+#                                 </div>
+#                                 <div style="margin-top: 20px; font-style: italic; font-size: 0.9rem; color: {'#bbb' if theme == 'Dark' else '#666'};">
+#                                     {summary_type} summary for {audience} audience
+#                                 </div>
+#                             </div>
+#                             """, unsafe_allow_html=True)
                             
-                            # Download option
-                            st.markdown(get_download_link(summary, 
-                                                       f"{uploaded_file.name.split('.')[0]}_summary.txt", 
-                                                       "📥 Download Summary"), 
-                                       unsafe_allow_html=True)
+#                             # Download option
+#                             st.markdown(get_download_link(summary, 
+#                                                        f"{uploaded_file.name.split('.')[0]}_summary.txt", 
+#                                                        "📥 Download Summary"), 
+#                                        unsafe_allow_html=True)
                             
-                            # Copy to clipboard option - FIXED VERSION
-                            summary_js_safe = summary.replace('`', "'").replace('"', '\\"').replace('\n', '\\n')
-                            st.markdown(f"""
-                            <div style="margin-top: 20px;">
-                                <button onclick="navigator.clipboard.writeText(\"{summary_js_safe}\");"
-                                        style="background-color: #6c757d; color: white; border: none; 
-                                               padding: 10px 15px; border-radius: 5px; cursor: pointer;">
-                                    📋 Copy to Clipboard
-                                </button>
-                            </div>
-                            """, unsafe_allow_html=True)
+#                             # Copy to clipboard option - FIXED VERSION
+#                             summary_js_safe = summary.replace('`', "'").replace('"', '\\"').replace('\n', '\\n')
+#                             st.markdown(f"""
+#                             <div style="margin-top: 20px;">
+#                                 <button onclick="navigator.clipboard.writeText(\"{summary_js_safe}\");"
+#                                         style="background-color: #6c757d; color: white; border: none; 
+#                                                padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+#                                     📋 Copy to Clipboard
+#                                 </button>
+#                             </div>
+#                             """, unsafe_allow_html=True)
                             
-                        except Exception as e:
-                            st.error(f"Error generating summary: {str(e)}")
-                            st.info("Try using a shorter document or simplify the text.")
-            else:
-                st.error(f"Could not process document: {text_to_summarize}")
-        except Exception as e:
-            st.error(f"Error processing document: {str(e)}")
+#                         except Exception as e:
+#                             st.error(f"Error generating summary: {str(e)}")
+#                             st.info("Try using a shorter document or simplify the text.")
+#             else:
+#                 st.error(f"Could not process document: {text_to_summarize}")
+#         except Exception as e:
+#             st.error(f"Error processing document: {str(e)}")
 
 # Document Classification - Using the imported module
 elif option == "Document Classification":
