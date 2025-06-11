@@ -1,21 +1,14 @@
 import pdfplumber
 import os
 from dotenv import load_dotenv
-import groq
+import streamlit as st
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-import streamlit as st
+from app.groq_utils import query_groq_api
 
 # Load environment variables
 load_dotenv()
-groq_api_key = os.getenv("GROQ_API_KEY_2")
-
-if not groq_api_key:
-    raise ValueError("❌ Groq API key is missing! Set GROQ_API_KEY in .env file.")
-
-# Initialize Groq Client
-groq_client = groq.Client(api_key=groq_api_key)
 
 # Initialize Vector Database
 vector_db = None
@@ -60,38 +53,7 @@ def retrieve_relevant_text(query):
 
 def query_groq(text, question):
     """Send extracted text to Groq API and get a response."""
-    try:
-        # Check if text is too long
-        if len(text) > 6000:
-            truncated_text = text[:6000]
-            st.warning("Text was truncated to 6,000 characters due to API limits.")
-        else:
-            truncated_text = text
-            
-        response = groq_client.chat.completions.create(
-            model="llama-3.3-70b-versatile",  # Use this model for best results
-            messages=[
-                {"role": "system", "content": "You are an AI assistant that helps users extract information from documents. Provide concise, accurate answers based solely on the document content provided."},
-                {"role": "user", "content": f"Context: {truncated_text}\n\nQuestion: {question}"}
-            ],
-            max_tokens=1000
-        )
-        return response.choices[0].message.content if response.choices else "No response available."
-    except Exception as e:
-        # If the model fails, try with a smaller model
-        try:
-            st.warning(f"Error with primary model: {str(e)}. Trying alternative model...")
-            response = groq_client.chat.completions.create(
-                model="mixtral-8x7b-32768",  # Fallback model
-                messages=[
-                    {"role": "system", "content": "You are an AI assistant that helps users extract information from documents."},
-                    {"role": "user", "content": f"Context: {text[:4000]}\n\nQuestion: {question}"}
-                ],
-                max_tokens=800
-            )
-            return response.choices[0].message.content if response.choices else "No response available."
-        except Exception as fallback_error:
-            return f"Error querying AI: {str(fallback_error)}"
+    return query_groq_api(text, question)
 
 def hybrid_query_pipeline(pdf_path, question):
     """Full pipeline: extract text, store in DB, retrieve, and query LLM."""
@@ -114,4 +76,3 @@ if __name__ == "__main__":
     
     print("\n💡 AI Response:")
     print(answer)
-

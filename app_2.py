@@ -152,9 +152,7 @@ st.sidebar.markdown("### 🧭 Navigation")
 option = st.sidebar.radio("Select a feature:",
                          ["Plagiarism Detection",
                           "Database Q&A",
-                          "Document Summarization",
-                          "Document Classification",
-                          "Voice Interaction"])
+                          "Document Classification"])
 
 # Plagiarism Detection
 if option == "Plagiarism Detection":
@@ -574,14 +572,15 @@ with st.sidebar.expander("📚 Help & Resources"):
     st.markdown("""
     - [User Guide](#)
     - [API Documentation](https://console.groq.com/docs/api-reference#chat-create)
-    - [Report a Bug](#)
+    - [Embedding Documentation](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)
+    - [GitHub Repository](https://github.com/0011Ashwin/Amity-Hack/blob/main/app/pdf_extractor.py)
     """)
 
 # System status with visual indicators
 with st.sidebar.expander("🔧 System Status"):
     status_items = [
         {"name": "Plagiarism Detection", "status": "Online"},
-        {"name": "PDF Text Extraction", "status": "Online"},
+        {"name": "Database Q&A", "status": "Online"},
         {"name": "Vector Database", "status": "Online"},
         {"name": "Groq API Connection", "status": "Online"},
         {"name": "Document Classification", "status": "Online"}
